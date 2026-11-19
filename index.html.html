@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบประเมิน Specific Functional Competency - ฝ่ายการพยาบาล โรงพยาบาลศิริราช</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --siriraj-navy: #0f172a;
+      --siriraj-blue: #0369a1;
+      --siriraj-teal: #0891b2;
+      --siriraj-gold: #d97706;
+      --siriraj-gold-light: #fef3c7;
+      --bg-slate: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --warning: #d97706;
+      --info: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: var(--bg-slate);
+      color: var(--text-main);
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, .brand-font {
+      font-family: 'Prompt', sans-serif;
+    }
+
+    /* 1. Header Banner */
+    .executive-header {
+      width: 100%;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0369a1 100%);
+      color: #ffffff;
+      padding: 24px 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      border-bottom: 4px solid var(--siriraj-gold);
+    }
+
+    .header-content {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .siriraj-emblem {
+      width: 62px;
+      height: 62px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 2px solid var(--siriraj-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+
+    .header-titles h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-titles .subtitle {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .meta-badge {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-badge span.label {
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .meta-badge span.val {
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    /* Executive Executive Dashboard Summary Ribbon */
+    .executive-kpi-ribbon {
+      width: 100%;
+      background: #ffffff;
+      padding: 18px 32px;
+      border-bottom: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .nurse-profile-card {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .nurse-avatar {
+      width: 48px;
+      height: 48px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .profile-info h4 {
+      font-size: 1rem;
+      color: var(--text-main);
+    }
+
+    .profile-info p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .kpi-card {
+      background: var(--bg-slate);
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      border-radius: 10px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .kpi-card .kpi-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .kpi-card .kpi-status {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .kpi-final-card {
+      background: #f8fafc;
+      border: 2px dashed #94a3b8;
+      border-radius: 12px;
+      padding: 10px 16px;
+      text-align: center;
+    }
+
+    .kpi-final-card.pass {
+      background: var(--success-bg);
+      border: 2px solid var(--success);
+      color: var(--success);
+    }
+
+    .kpi-final-card.fail {
+      background: var(--danger-bg);
+      border: 2px solid var(--danger);
+      color: var(--danger);
+    }
+
+    /* Container */
+    .app-container {
+      width: 100%;
+      flex: 1;
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs-wrapper {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 6px;
+      display: flex;
+      gap: 8px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 12px 18px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      font-family: 'Prompt', sans-serif;
+    }
+
+    .tab-btn:hover {
+      background: #f1f5f9;
+      color: var(--siriraj-navy);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+    }
+
+    .tab-badge {
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .tab-btn:not(.active) .tab-badge {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    /* Tab Content Cards */
+    .tab-panel {
+      display: none;
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      padding: 28px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Headers */
+    .module-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #f1f5f9;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .module-title h2 {
+      font-size: 1.25rem;
+      color: var(--siriraj-navy);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .module-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      max-width: 900px;
+    }
+
+    .target-level-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--siriraj-gold-light);
+      border: 1px solid #fde68a;
+      padding: 8px 16px;
+      border-radius: 10px;
+    }
+
+    .target-level-box label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #92400e;
+    }
+
+    .target-level-box select {
+      padding: 6px 12px;
+      font-size: 0.88rem;
+      border-radius: 6px;
+      border: 1px solid #d97706;
+      font-family: 'Sarabun', sans-serif;
+      font-weight: 600;
+      color: #78350f;
+      background: #ffffff;
+      outline: none;
+    }
+
+    /* Table Styles for Module 1 */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    table.sfc-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+
+    table.sfc-table th {
+      background: #f8fafc;
+      color: var(--siriraj-navy);
+      padding: 14px 16px;
+      font-weight: 600;
+      border-bottom: 2px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    table.sfc-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    table.sfc-table tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .level-heading-row {
+      background: #f1f5f9 !important;
+      font-weight: 700;
+      color: var(--siriraj-blue);
+    }
+
+    .score-input {
+      width: 80px;
+      padding: 8px 10px;
+      font-size: 1rem;
+      text-align: center;
+      font-weight: bold;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .score-input:focus {
+      border-color: var(--siriraj-blue);
+      box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.15);
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .badge-pass {
+      background: var(--success-bg);
+      color: var(--success);
+      border: 1px solid #a7f3d0;
+    }
+
+    .badge-fail {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+
+    .badge-neutral {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Module Summary Footer Bar */
+    .module-summary-bar {
+      margin-top: 24px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .summary-stats {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-item .val {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .stat-item .lbl {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Module 2: Knowledge Exam Style */
+    .knowledge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .card-bordered {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      background: #ffffff;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: 'Sarabun', sans-serif;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--siriraj-blue);
+      box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.15);
+    }
+
+    .exam-benchmarking-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+      border: 1px solid #bae6fd;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .benchmark-dial {
+      text-align: center;
+      margin: 18px 0;
+    }
+
+    .benchmark-score {
+      font-size: 3.5rem;
+      font-weight: 800;
+      font-family: 'Prompt', sans-serif;
+      color: var(--siriraj-navy);
+      line-height: 1;
+    }
+
+    .benchmark-total {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 12px;
+      background: #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--siriraj-blue);
+      width: 0%;
+      transition: width 0.4s ease, background-color 0.3s;
+    }
+
+    /* Module 3: Skill Assessment */
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 28px;
+    }
+
+    .upload-zone {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .upload-zone:hover {
+      border-color: var(--siriraj-blue);
+      background: #f0f9ff;
+    }
+
+    .upload-zone svg {
+      width: 44px;
+      height: 44px;
+      color: var(--siriraj-blue);
+      margin-bottom: 8px;
+    }
+
+    .file-preview-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    /* Master Action Buttons */
+    .btn-action-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: 'Prompt', sans-serif;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--siriraj-blue);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #0284c7;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    /* 4. Footer Banner */
+    .executive-footer {
+      width: 100%;
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 20px 32px;
+      border-top: 1px solid #1e293b;
+      margin-top: auto;
+      font-size: 0.85rem;
+    }
+
+    .footer-content {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-right {
+      display: flex;
+      gap: 20px;
+      font-size: 0.8rem;
+    }
+
+    /* Print Optimization */
+    @media print {
+      .executive-header, .executive-footer {
+        background: #0f172a !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .nav-tabs-wrapper, .btn-action-group, .target-level-box select {
+        display: none !important;
+      }
+      .tab-panel {
+        display: block !important;
+        margin-bottom: 30px;
+        page-break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .executive-kpi-ribbon {
+        grid-template-columns: 1fr 1fr;
+      }
+      .knowledge-grid, .skills-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== 1. EXECUTIVE TITLE HEADER BANNER ==================== -->
+  <header class="executive-header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="siriraj-emblem">
+          <!-- Siriraj Medical Cross SVG -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M2 12h20M7 7h10v10H7z"/>
+          </svg>
+        </div>
+        <div class="header-titles">
+          <h1>
+            ระบบประเมิน Specific Functional Competency
+            <span style="font-size: 0.8rem; background: var(--siriraj-gold); color: #000; padding: 2px 10px; border-radius: 12px; font-weight: 700;">Cardiovascular OPD</span>
+          </h1>
+          <div class="subtitle">
+            กลุ่มที่ 1: การดูแลผู้ป่วยที่เข้ารับการตรวจด้วยเครื่องมือพิเศษ/หัตถการ แบบ Invasive และ Non-invasive
+          </div>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="meta-badge">
+          <span class="label">หน่วยงาน / องค์กร</span>
+          <span class="val">ฝ่ายการพยาบาล โรงพยาบาลศิริราช</span>
+        </div>
+        <div class="meta-badge">
+          <span class="label">ตำแหน่งเป้าหมาย</span>
+          <span class="val">พยาบาลวิชาชีพ (RN)</span>
+        </div>
+        <div class="meta-badge">
+          <span class="label">รอบการประเมิน</span>
+          <span class="val">พฤศจิกายน 2569</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== EXECUTIVE KPI DASHBOARD RIBBON ==================== -->
+  <section class="executive-kpi-ribbon">
+    <div class="nurse-profile-card">
+      <div class="nurse-avatar">ศร</div>
+      <div class="profile-info">
+        <h4 id="eval-nurse-name">พว. ศิริพร เจริญสุข, RN</h4>
+        <p>ตำแหน่ง: พยาบาลชำนาญการ | หน่วยตรวจสวนหัวใจ OPD</p>
+      </div>
+    </div>
+
+    <!-- M1 KPI -->
+    <div class="kpi-card" id="kpi-card-m1">
+      <div class="kpi-label">Module 1: พฤติกรรมบ่งชี้ (>=8 ทุกข้อ)</div>
+      <div class="kpi-status" id="kpi-status-m1">รอการประเมิน</div>
+    </div>
+
+    <!-- M2 KPI -->
+    <div class="kpi-card" id="kpi-card-m2">
+      <div class="kpi-label">Module 2: สอบความรู้ (>=24 คะแนน)</div>
+      <div class="kpi-status" id="kpi-status-m2">รอการประเมิน</div>
+    </div>
+
+    <!-- M3 KPI -->
+    <div class="kpi-card" id="kpi-card-m3">
+      <div class="kpi-label">Module 3: ประเมินทักษะ & หลักฐาน</div>
+      <div class="kpi-status" id="kpi-status-m3">รอการประเมิน</div>
+    </div>
+
+    <!-- Overall Certification Result -->
+    <div class="kpi-final-card" id="kpi-final-card">
+      <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">ผลสรุปประเมินสมรรถนะ SFC</div>
+      <div style="font-size: 1.1rem; font-weight: 800; font-family: 'Prompt', sans-serif;" id="kpi-final-status">ยังไม่ผ่านการประเมินครบ 3 ด้าน</div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT & TABS ==================== -->
+  <main class="app-container">
+
+    <!-- TAB NAVIGATION BAR -->
+    <nav class="nav-tabs-wrapper">
+      <button class="tab-btn active" onclick="switchTab(1)" id="tab-btn-1">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+        <span>1. การประเมินพฤติกรรมบ่งชี้</span>
+        <span class="tab-badge" id="badge-tab-1">0/24 บันทึกแล้ว</span>
+      </button>
+
+      <button class="tab-btn" onclick="switchTab(2)" id="tab-btn-2">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>2. ผลการประเมินความรู้</span>
+        <span class="tab-badge" id="badge-tab-2">เกณฑ์ผ่าน: &ge; 24</span>
+      </button>
+
+      <button class="tab-btn" onclick="switchTab(3)" id="tab-btn-3">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <span>3. ผลการประเมินทักษะ & เอกสารหลักฐาน</span>
+        <span class="tab-badge" id="badge-tab-3">Upload & Direct Observe</span>
+      </button>
+    </nav>
+
+    <!-- ==================== TAB 1: พฤติกรรมบ่งชี้ (PDF Based) ==================== -->
+    <div class="tab-panel active" id="tab-panel-1">
+      <div class="module-header">
+        <div class="module-title">
+          <h2>สมรรถนะ: การดูแลผู้ป่วยตรวจด้วยเครื่องมือพิเศษ/หัตถการ แบบ Invasive และ Non-invasive</h2>
+          <p class="module-desc">
+            คำจำกัดความ: การมีความรู้ ทักษะ และสามารถให้การพยาบาลผู้ป่วยที่เข้ารับการตรวจด้วยเครื่องมือพิเศษ/หัตถการ แบบ Invasive และ Non-invasive ได้ครอบคลุมทั้งก่อน ขณะ และหลังทำหัตถการ รวมทั้งสามารถบริหารจัดการเครื่องมือ อุปกรณ์ ตรวจสอบ บำรุงรักษา และประยุกต์ใช้อย่างเหมาะสม
+          </p>
+        </div>
+        <div class="target-level-box">
+          <label for="filter-level">กรองระดับสมรรถนะตามตำแหน่ง:</label>
+          <select id="filter-level" onchange="filterIndicators()">
+            <option value="all">แสดงทั้งหมด (ระดับ 1 - 5)</option>
+            <option value="1">ระดับ 1 (อายุงาน 0-1 ปี)</option>
+            <option value="2">ระดับ 2 (อายุงาน > 1 ปี)</option>
+            <option value="3">ระดับ 3 (อายุงาน > 3 ปี / หน.เวร)</option>
+            <option value="4">ระดับ 4 (อายุงาน > 5 ปี)</option>
+            <option value="5">ระดับ 5 (อายุงาน > 10 ปี / บริหาร)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="sfc-table" id="competency-table">
+          <thead>
+            <tr>
+              <th style="width: 70px; text-align: center;">ข้อที่</th>
+              <th style="width: 140px;">ระดับความสามารถ</th>
+              <th>พฤติกรรมบ่งชี้ตามสมรรถนะเฉพาะ (Behavioral Indicators)</th>
+              <th style="width: 120px; text-align: center;">คะแนน (เต็ม 10)</th>
+              <th style="width: 130px; text-align: center;">ผลการประเมิน</th>
+            </tr>
+          </thead>
+          <tbody id="indicators-tbody">
+            <!-- Rendered by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Module 1 Footer Summary -->
+      <div class="module-summary-bar">
+        <div class="summary-stats">
+          <div class="stat-item">
+            <span class="val" id="m1-count-evaluated">0 / 24</span>
+            <span class="lbl">จำนวนข้อที่ประเมินแล้ว</span>
+          </div>
+          <div class="stat-item">
+            <span class="val" id="m1-average-score">0.00</span>
+            <span class="lbl">คะแนนเฉลี่ยรวม (เต็ม 10)</span>
+          </div>
+          <div class="stat-item">
+            <span class="val" id="m1-count-pass" style="color: var(--success);">0</span>
+            <span class="lbl">ผ่านเกณฑ์ (&ge; 8)</span>
+          </div>
+          <div class="stat-item">
+            <span class="val" id="m1-count-fail" style="color: var(--danger);">0</span>
+            <span class="lbl">ไม่ผ่าน (&lt; 8)</span>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="text-align: right;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">เกณฑ์ผ่าน: ทุกรายการย่อยต้อง &ge; 8 คะแนน</div>
+            <div id="m1-badge-summary" class="badge-status badge-neutral" style="font-size: 1rem; padding: 6px 16px;">
+              สถานะ: ยังประเมินไม่ครบ
+            </div>
+          </div>
+          <button class="btn btn-secondary" onclick="autoFillMockModule1()">จำลองคะแนนผ่านทุกข้อ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: ผลการประเมินความรู้ ==================== -->
+    <div class="tab-panel" id="tab-panel-2">
+      <div class="module-header">
+        <div class="module-title">
+          <h2>บันทึกผลการประเมินความรู้ (Knowledge Assessment Examination)</h2>
+          <p class="module-desc">
+            การทดสอบองค์ความรู้ภาคทฤษฎีทางคลินิกหัวใจและหลอดเลือด: เภสัชวิทยาโรคหัวใจ, หัตถการ Invasive/Non-invasive, การแปลผล EKG ขั้นวิกฤต, และการพยาบาลภาวะฉุกเฉิน
+          </p>
+        </div>
+        <div>
+          <span class="badge-status badge-neutral" style="font-size: 0.9rem;">เกณฑ์ผ่านการประเมินความรู้: &ge; 24 คะแนน</span>
+        </div>
+      </div>
+
+      <div class="knowledge-grid">
+        <div class="card-bordered">
+          <h3 style="font-size: 1.1rem; margin-bottom: 18px; color: var(--siriraj-navy);">ข้อมูลการทดสอบความรู้ทางวิชาการ</h3>
+
+          <div class="form-group">
+            <label for="exam-title">ชุดข้อสอบ / รายวิชาทดสอบ</label>
+            <input type="text" id="exam-title" class="form-control" value="ข้อสอบวัดความรู้เฉพาะทาง Cardiovascular & Invasive Nursing ศิริราช ประจำปี 2569" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="exam-date">วันที่เข้าทำแบบทดสอบ</label>
+            <input type="date" id="exam-date" class="form-control" value="2026-11-19">
+          </div>
+
+          <div class="form-group">
+            <label for="exam-score">คะแนนสอบที่ได้ (คะแนนเต็ม 30 คะแนน) <span style="color: red;">*</span></label>
+            <input type="number" id="exam-score" class="form-control" placeholder="กรอกคะแนน 0 - 30" min="0" max="30" step="0.5" oninput="calculateModule2()">
+            <small style="color: var(--text-muted); margin-top: 4px; display: block;">ระบบจะประมวลผลทันที: คะแนน &ge; 24.0 ถือว่า "ผ่านการประเมินความรู้"</small>
+          </div>
+
+          <div class="form-group">
+            <label for="exam-assessor">ผู้กำกับการสอบ / ผู้ตรวจประเมิน</label>
+            <input type="text" id="exam-assessor" class="form-control" value="พว. นงลักษณ์ รักษ์วิชาการ (APN Cardiovascular)">
+          </div>
+
+          <div class="form-group">
+            <label for="exam-note">ข้อเสนอแนะเพิ่มเติมเพื่อการพัฒนาองค์ความรู้</label>
+            <textarea id="exam-note" class="form-control" rows="3" placeholder="ระบุหัวข้อที่พยาบาลควรศึกษาเพิ่มเติม เช่น Advanced Arrhythmia, Hemodynamic monitoring"></textarea>
+          </div>
+        </div>
+
+        <div class="exam-benchmarking-card">
+          <div>
+            <h3 style="font-size: 1.1rem; color: var(--siriraj-navy);">ผลการวิเคราะห์คะแนนเชิงประจักษ์</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Cardiovascular Knowledge Benchmarking</p>
+          </div>
+
+          <div class="benchmark-dial">
+            <div class="benchmark-score" id="m2-display-score">0.0</div>
+            <div class="benchmark-total">คะแนนเต็ม 30.0</div>
+
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" id="m2-progress-fill"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+              <span>0 คะแนน</span>
+              <span style="color: var(--warning); font-weight: bold;">เกณฑ์ผ่าน (24.0)</span>
+              <span>30 คะแนน</span>
+            </div>
+          </div>
+
+          <div style="background: #ffffff; padding: 16px; border-radius: 10px; border: 1px solid #bae6fd; text-align: center;">
+            <div style="font-size: 0.85rem; color: var(--text-muted);">สถานะผลการประเมิน Module 2</div>
+            <div id="m2-status-pill" class="badge-status badge-neutral" style="font-size: 1.1rem; margin-top: 6px; padding: 6px 20px;">
+              รอการบันทึกคะแนน
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 14px;">
+            <button class="btn btn-secondary" style="flex: 1;" onclick="setMockExamScore(22)">จำลอง: 22 คะแนน (ไม่ผ่าน)</button>
+            <button class="btn btn-primary" style="flex: 1;" onclick="setMockExamScore(27.5)">จำลอง: 27.5 คะแนน (ผ่าน)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: ผลการประเมินทักษะ & อัปโหลดหลักฐาน ==================== -->
+    <div class="tab-panel" id="tab-panel-3">
+      <div class="module-header">
+        <div class="module-title">
+          <h2>บันทึกผลการประเมินทักษะและการปฏิบัติการพยาบาลทางคลินิก (Clinical Skill Assessment)</h2>
+          <p class="module-desc">
+            การประเมินทักษะเฉพาะทาง Direct Observation of Procedural Skills (DOPS) และการแนบเอกสารรับรองทักษะ (Skill Passport / Video / Logbook)
+          </p>
+        </div>
+      </div>
+
+      <div class="skills-layout">
+        <!-- Form Details -->
+        <div class="card-bordered">
+          <h3 style="font-size: 1.1rem; margin-bottom: 18px; color: var(--siriraj-navy);">ข้อมูลการทดสอบทักษะทางคลินิก</h3>
+
+          <div class="form-group">
+            <label for="skill-name">ชื่อทักษะ / หัตถการที่ประเมิน <span style="color: red;">*</span></label>
+            <select id="skill-name" class="form-control" onchange="calculateModule3()">
+              <option value="">-- กรุณาเลือกทักษะที่เข้ารับการประเมิน --</option>
+              <option value="การเตรียมและช่วยแพทย์ทำ Transesophageal Echocardiogram (TEE)" selected>การเตรียมและช่วยแพทย์ทำ Transesophageal Echocardiogram (TEE)</option>
+              <option value="การเตรียมผู้ป่วยและดูแลขณะตรวจ Cardiac Catheterization / CAG">การเตรียมผู้ป่วยและดูแลขณะตรวจ Cardiac Catheterization / CAG</option>
+              <option value="การปฏิบัติการพยาบาลและเฝ้าระวังผู้ป่วยทำ Exercise Stress Test (EST)">การปฏิบัติการพยาบาลและเฝ้าระวังผู้ป่วยทำ Exercise Stress Test (EST)</option>
+              <option value="การดูแล บำรุงรักษา และ Decontamination TEE Probe ราคาแพง">การดูแล บำรุงรักษา และ Decontamination TEE Probe ราคาแพง</option>
+              <option value="การแปลผล 12-Lead EKG ภาวะฉุกเฉินวิกฤต (VT/VF) และบริหารยาช่วยฟื้นคืนชีพ">การแปลผล 12-Lead EKG ภาวะฉุกเฉินวิกฤต (VT/VF) และบริหารยาช่วยฟื้นคืนชีพ</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="skill-eval-date">วันที่ประเมินทักษะ</label>
+            <input type="date" id="skill-eval-date" class="form-control" value="2026-11-19">
+          </div>
+
+          <div class="form-group">
+            <label for="skill-assessor">พยาบาลผู้ตรวจประเมินทักษะ (Preceptor / Expert Nurse) <span style="color: red;">*</span></label>
+            <input type="text" id="skill-assessor" class="form-control" value="พว. รุ่งทิวา สมบูรณ์ (APN หัวหน้าทีมหัตถการพิเศษ)">
+          </div>
+
+          <div class="form-group">
+            <label for="skill-result-select">ผลการประเมินทักษะทางคลินิก <span style="color: red;">*</span></label>
+            <select id="skill-result-select" class="form-control" style="font-weight: 700;" onchange="calculateModule3()">
+              <option value="">-- เลือกผลการตัดสินทักษะ --</option>
+              <option value="PASS" style="color: var(--success);">ผ่านการประเมินทักษะ (Competent / PASS)</option>
+              <option value="FAIL" style="color: var(--danger);">ไม่ผ่านการประเมินทักษะ (Needs Improvement / FAIL)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="skill-feedback">บันทึกข้อเสนอแนะในการปฏิบัติการพยาบาลจริง</label>
+            <textarea id="skill-feedback" class="form-control" rows="3" placeholder="เช่น มีความคล่องตัวในการหยิบส่งอุปกรณ์ TEE ปฏิบัติตาม Aseptic technique ได้อย่างเคร่งครัด สื่อสารกับผู้ป่วยได้ดีเยื่ยม"></textarea>
+          </div>
+        </div>
+
+        <!-- Evidence Upload & Verification -->
+        <div class="card-bordered" style="display: flex; flex-direction: column;">
+          <h3 style="font-size: 1.1rem; margin-bottom: 14px; color: var(--siriraj-navy);">อัปโหลดหลักฐานประกอบการประเมิน (Evidence Upload)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+            รองรับไฟล์แบบประเมิน DOPS, Skill Checklists, รูปถ่าย, เอกสารใบรับรอง หรือรายงานเคสหัตถการ (PDF, PNG, JPG ขนาดไม่เกิน 25MB)
+          </p>
+
+          <div class="upload-zone" onclick="document.getElementById('evidence-file-input').click()">
+            <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+            </svg>
+            <div style="font-weight: 600; color: var(--siriraj-navy);">คลิกเพื่อเลือกไฟล์ หรือลากไฟล์มาวางที่นี่</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">รองรับนามสกุลไฟล์ PDF, PNG, JPG, DOCX</div>
+            <input type="file" id="evidence-file-input" style="display: none;" multiple onchange="handleFileUpload(event)">
+          </div>
+
+          <div class="file-preview-list" id="file-list-container">
+            <!-- Simulated default file -->
+            <div class="file-item">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <svg width="20" height="20" fill="none" stroke="#dc2626" stroke-width="2" viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                <span><strong>DOPS_Assessment_Cardiovascular_2569.pdf</strong> (1.4 MB)</span>
+              </div>
+              <span style="color: var(--success); font-weight: 600; font-size: 0.78rem;">Verified ✓</span>
+            </div>
+          </div>
+
+          <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 0.82rem; color: var(--text-muted);">สถานะผล Module 3:</div>
+                <div id="m3-badge-status" class="badge-status badge-neutral" style="font-size: 1rem; margin-top: 4px;">
+                  รอผลการประเมิน
+                </div>
+              </div>
+              <button class="btn btn-success" onclick="quickPassSkill()">จำลอง: ผ่านทักษะ</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Master Action Section -->
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 18px 24px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font-size: 0.95rem; font-weight: 600;">การบริหารจัดการข้อมูล:</span>
+        <button class="btn btn-secondary" onclick="loadFullSampleData()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          โหลดข้อมูลตัวอย่างครบถ้วน (Mock All Pass)
+        </button>
+        <button class="btn btn-secondary" onclick="resetForm()">ล้างข้อมูลแบบประเมิน</button>
+      </div>
+
+      <div class="btn-action-group">
+        <button class="btn btn-primary" onclick="window.print()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          พิมพ์รายงานสรุปผลผู้บริหาร (Official Executive Report)
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== 4. FOOTER BANNER ==================== -->
+  <footer class="executive-footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <span>ระบบประเมินสมรรถนะพยาบาลเฉพาะทาง (SFC Portal) | ฝ่ายการพยาบาล โรงพยาบาลศิริราช</span>
+      </div>
+      <div class="footer-right">
+        <span>เอกสารอ้างอิง: Specific Functional Competency กลุ่มที่ 1 (Update ต.ค. 2569)</span>
+        <span>•</span>
+        <span>Nursing Informatics Division</span>
+        <span>•</span>
+        <span>Data-driven Clinical Excellence</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== LOGIC / JAVASCRIPT ==================== -->
+  <script>
+    // DATA SOURCE: Extracted directly from PDF
+    const competencyData = [
+      // ระดับ 1
+      { id: 1, level: 1, levelTitle: "ระดับ 1 (อายุงาน 0-1 ปี สมาชิกทีม)", text: "ปฏิบัติการพยาบาลตามระเบียบปฏิบัติและวิธีปฏิบัติงาน (Work Instruction) ที่เกี่ยวข้องได้ถูกต้อง เช่น การตรวจบันทึกคลื่นไฟฟ้าหัวใจ (i-EKG) การควบคุมและป้องกันการแพร่กระจายเชื้อ เป็นต้น ภายใต้การกำกับดูแลของพยาบาลพี่เลี้ยง" },
+      { id: 2, level: 1, levelTitle: "ระดับ 1 (อายุงาน 0-1 ปี สมาชิกทีม)", text: "เตรียมความพร้อมของผู้รับบริการได้ทั้งด้านร่างกายและจิตใจ ภายใต้การกำกับดูแลของพยาบาลพี่เลี้ยง" },
+      { id: 3, level: 1, levelTitle: "ระดับ 1 (อายุงาน 0-1 ปี สมาชิกทีม)", text: "อธิบายวัตถุประสงค์ของการใช้เครื่องมือและอุปกรณ์ต่างๆ เพื่อการตรวจพิเศษ/หัตถการพื้นฐานได้" },
+      { id: 4, level: 1, levelTitle: "ระดับ 1 (อายุงาน 0-1 ปี สมาชิกทีม)", text: "จัดเตรียมเครื่องมือและอุปกรณ์ต่าง ๆ เพื่อการตรวจพิเศษ แบบ (Non-invasive) /หัตถการพื้นฐานได้อย่างถูกต้อง ครบถ้วน รวมทั้งการตรวจสอบสภาพความพร้อมใช้ การทำความสะอาด การจัดเก็บ และการทำให้ปลอดเชื้อได้" },
+      { id: 5, level: 1, levelTitle: "ระดับ 1 (อายุงาน 0-1 ปี สมาชิกทีม)", text: "จัดเตรียมเครื่องมือและอุปกรณ์ต่าง ๆ เพื่อการตรวจพิเศษ แบบ (Invasive) /หัตถการที่ยุ่งยากซับซ้อนได้อย่างถูกต้อง ภายใต้การกำกับดูแลของพยาบาลพี่เลี้ยง" },
+
+      // ระดับ 2
+      { id: 6, level: 2, levelTitle: "ระดับ 2 (อายุงาน > 1 ปี สมาชิกทีม)", text: "อธิบายพยาธิสรีรภาพ อาการ แนวทางการรักษา และนำมาใช้ในการพยาบาลผู้ป่วยโรคระบบหัวใจและหลอดเลือดที่ไม่ซับซ้อน เช่น CAD, cardiac arrhythmia, peripheral vascular disease, ภาวะหัวใจล้มเหลว เป็นต้น" },
+      { id: 7, level: 2, levelTitle: "ระดับ 2 (อายุงาน > 1 ปี สมาชิกทีม)", text: "อธิบายวัตถุประสงค์ของการใช้เครื่องมือพิเศษและอุปกรณ์ต่าง ๆ เพื่อการตรวจพิเศษ/หัตถการที่ยุ่งยากซับซ้อน และจัดเตรียมได้อย่างถูกต้อง ครบถ้วน รวมทั้งการตรวจสอบสภาพความพร้อมใช้ประจำวัน การทำความสะอาด การคัดแยก การจัดเก็บ และการทำให้ปลอดเชื้อ ดูแลบำรุงรักษาเครื่องมือพิเศษราคาแพงให้พร้อมใช้ เช่น TEE probe, echocardiography, Holter เป็นต้น" },
+      { id: 8, level: 2, levelTitle: "ระดับ 2 (อายุงาน > 1 ปี สมาชิกทีม)", text: "ให้การพยาบาลก่อน ขณะและหลังทำหัตถการ รวมทั้งการจัดเตรียมเครื่องมือ อุปกรณ์ ช่วยแพทย์ตรวจวินิจฉัย และทำหัตถการพื้นฐาน เช่น กลุ่มการตรวจ Cardiac Invasive และ Non-invasive เป็นต้น ได้ด้วยตนเอง" },
+      { id: 9, level: 2, levelTitle: "ระดับ 2 (อายุงาน > 1 ปี สมาชิกทีม)", text: "แปลผลการตรวจทางห้องปฏิบัติการที่ผิดปกติและรายงานแพทย์ทราบได้ เช่น ค่า Cr, BUN, GFR, electrolyte, CBC เป็นต้น" },
+      { id: 10, level: 2, levelTitle: "ระดับ 2 (อายุงาน > 1 ปี สมาชิกทีม)", text: "อ่านและแปลผลคลื่นไฟฟ้าหัวใจที่ผิดปกติชนิดรุนแรง และรายงานแพทย์ได้ทันที เช่น ventricular tachycardia (VT), ventricular fibrillation (VF) เป็นต้น" },
+
+      // ระดับ 3
+      { id: 11, level: 3, levelTitle: "ระดับ 3 (อายุงาน > 3 ปี และ/หรือ หน.เวรบ่าย/ดึก/หน.ทีม)", text: "อธิบายพยาธิสรีรภาพ อาการ แนวทางการรักษา และนำมาใช้ในการพยาบาลผู้ป่วยโรคระบบหัวใจและหลอดเลือดที่ซับซ้อน (complex heart disease) หรือมีโรคร่วมอื่นๆ" },
+      { id: 12, level: 3, levelTitle: "ระดับ 3 (อายุงาน > 3 ปี และ/หรือ หน.เวรบ่าย/ดึก/หน.ทีม)", text: "ให้การพยาบาลก่อน ขณะ และหลัง ทำหัตถการ รวมทั้งการจัดเตรียมและบริหารยา จัดเตรียมเครื่องมือ อุปกรณ์ ช่วยแพทย์ตรวจวินิจฉัย และทำหัตถการที่ซับซ้อน เช่น TEE, Cardiac invasive ได้" },
+      { id: 13, level: 3, levelTitle: "ระดับ 3 (อายุงาน > 3 ปี และ/หรือ หน.เวรบ่าย/ดึก/หน.ทีม)", text: "ประเมินอาการ และอาการแสดง และให้การช่วยเหลือเบื้องต้น เช่น chest pain, dyspnea, cardiac arrhythmia, heart failure เป็นต้น และรายงานแพทย์ทันที" },
+      { id: 14, level: 3, levelTitle: "ระดับ 3 (อายุงาน > 3 ปี และ/หรือ หน.เวรบ่าย/ดึก/หน.ทีม)", text: "ให้คำแนะนำผู้ป่วยและครอบครัว เช่น การดูแลตนเอง การจัดการในภาวะฉุกเฉิน การปรับพฤติกรรมป้องกันความเสี่ยง นำผู้ป่วยและครอบครัวมามีส่วนร่วมในการรักษาพยาบาล การเฝ้าระวังอาการผิดปกติทางหัวใจและหลอดเลือด" },
+      { id: 15, level: 3, levelTitle: "ระดับ 3 (อายุงาน > 3 ปี และ/หรือ หน.เวรบ่าย/ดึก/หน.ทีม)", text: "ประเมินปัญหาเกี่ยวกับเครื่องมือและอุปกรณ์ต่าง ๆ เพื่อการตรวจพิเศษ/หัตถการ และแก้ไขปัญหาเบื้องต้นได้ รวมทั้งประสานงานกับแพทย์และหน่วยงานที่เกี่ยวข้องในกรณีที่เครื่องมือพิเศษมีปัญหาขัดข้อง ไม่สามารถใช้งานได้ บริหารจัดการเครื่องมือและอุปกรณ์ต่าง ๆ เพื่อการตรวจพิเศษ/หัตถการให้พร้อมใช้งาน" },
+      { id: 16, level: 3, levelTitle: "ระดับ 3 (อายุงาน > 3 ปี และ/หรือ หน.เวรบ่าย/ดึก/หน.ทีม)", text: "เป็นที่ปรึกษาแก่ผู้มีประสบการณ์น้อยกว่าในการปฏิบัติการพยาบาลดูแลผู้รับบริการที่มารับการตรวจรักษาโรคหัวใจและหลอดเลือดแบบ Invasive และ Non-invasive" },
+
+      // ระดับ 4
+      { id: 17, level: 4, levelTitle: "ระดับ 4 (อายุงาน > 5 ปี และ/หรือ หน.เวรเช้า/บ่าย/ดึก)", text: "วางแผนและให้การพยาบาลได้ครอบคลุมแบบองค์รวมกับผู้ป่วยแต่ละรายที่มีปัญหาร่วมอื่นๆ เช่น โรคร่วม เศรษฐานะ ครอบครัว/ผู้ดูแล และประสานงานกับทีมสหสาขาวิชาชีพที่เกี่ยวข้อง" },
+      { id: 18, level: 4, levelTitle: "ระดับ 4 (อายุงาน > 5 ปี และ/หรือ หน.เวรเช้า/บ่าย/ดึก)", text: "จัดลำดับความสำคัญของปัญหาและแก้ไขได้อย่างรวดเร็วเหมาะสม เช่น anaphylactic shock, cardiogenic shock, cardiac tamponade, bleeding, hematoma, cardiac arrest, vascular complication, stroke เป็นต้น" },
+      { id: 19, level: 4, levelTitle: "ระดับ 4 (อายุงาน > 5 ปี และ/หรือ หน.เวรเช้า/บ่าย/ดึก)", text: "สอนแนะนำการใช้งาน เครื่องมือและอุปกรณ์ต่าง ๆ บริหารจัดการ ติดต่อประสานงานกับหน่วยงานที่เกี่ยวข้อง ตรวจสอบสภาพความพร้อมใช้ และการดูแลรักษาเครื่องมือพิเศษ เพื่อการตรวจพิเศษ/หัตถการได้" },
+      { id: 20, level: 4, levelTitle: "ระดับ 4 (อายุงาน > 5 ปี และ/หรือ หน.เวรเช้า/บ่าย/ดึก)", text: "ร่วมจัดทำโครงการพัฒนาคุณภาพงาน เช่น แนวทางปฏิบัติงาน คู่มือการปฏิบัติงาน งานวิจัย นวัตกรรม เป็นต้น" },
+
+      // ระดับ 5
+      { id: 21, level: 5, levelTitle: "ระดับ 5 (อายุงาน > 10 ปี และ/หรือ บริหารจัดการหอผู้ป่วย)", text: "คาดการณ์ปัญหาที่อาจจะเกิดขึ้นและวางแผนป้องกันให้สอดคล้องกับความต้องการของผู้รับบริการที่มารับการตรวจรักษาโรคระบบหัวใจและหลอดเลือด เช่น anaphylactic shock, cardiogenic shock, cardiac tamponade, bleeding, hematoma, cardiac arrest เป็นต้น" },
+      { id: 22, level: 5, levelTitle: "ระดับ 5 (อายุงาน > 10 ปี และ/หรือ บริหารจัดการหอผู้ป่วย)", text: "ควบคุม กำกับการจัดเก็บเครื่องมือและอุปกรณ์ให้ได้ตามมาตรฐาน บริหารจัดการเครื่องมือและอุปกรณ์เพื่อการตรวจพิเศษ/หัตถการ รวมทั้งวางแผนการจัดซื้อจัดจ้างครุภัณฑ์ได้" },
+      { id: 23, level: 5, levelTitle: "ระดับ 5 (อายุงาน > 10 ปี และ/หรือ บริหารจัดการหอผู้ป่วย)", text: "สร้างและนำองค์ความรู้ใหม่ หลักฐานเชิงประจักษ์ และผลงานวิจัยมาบูรณาการในการวางแผนและปรับปรุงแนวทางการพยาบาลแก่ผู้รับบริการตรวจรักษาโรคระบบหัวใจและหลอดเลือด รวมทั้งพัฒนาคุณภาพการบริหารจัดการเครื่องมือและอุปกรณ์ให้มีประสิทธิภาพและประสิทธิผล" },
+      { id: 24, level: 5, levelTitle: "ระดับ 5 (อายุงาน > 10 ปี และ/หรือ บริหารจัดการหอผู้ป่วย)", text: "เป็นที่ปรึกษาในปัญหาที่ซับซ้อนและนิเทศทางการพยาบาล แก่ผู้ปฏิบัติงานและผู้ศึกษาดูงานได้ เป็นผู้นำเสนอข้อมูลต่อทีมสหสาขาวิชาชีพ และเผยแพร่องค์ความรู้ใหม่ เช่น Clinical preceptor, วิทยากรวิชาการ" }
+    ];
+
+    // State
+    const scores = {}; // { id: number }
+    let module1Pass = false;
+    let module2Pass = false;
+    let module3Pass = false;
+
+    // Initialize application
+    document.addEventListener("DOMContentLoaded", () => {
+      renderIndicatorsTable(competencyData);
+      calculateModule1();
+      calculateModule2();
+      calculateModule3();
+    });
+
+    // Switch Tabs
+    function switchTab(tabIndex) {
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+
+      document.getElementById(`tab-panel-${tabIndex}`).classList.add("active");
+      document.getElementById(`tab-btn-${tabIndex}`).classList.add("active");
+    }
+
+    // Render Table for Module 1
+    function renderIndicatorsTable(items) {
+      const tbody = document.getElementById("indicators-tbody");
+      tbody.innerHTML = "";
+
+      let currentLevel = null;
+
+      items.forEach(item => {
+        if (currentLevel !== item.level) {
+          currentLevel = item.level;
+          const headerRow = document.createElement("tr");
+          headerRow.className = "level-heading-row";
+          headerRow.innerHTML = `
+            <td colspan="5" style="padding: 10px 16px; font-weight: 700;">
+              ❖ ${item.levelTitle}
+            </td>
+          `;
+          tbody.appendChild(headerRow);
+        }
+
+        const tr = document.createElement("tr");
+        tr.id = `row-item-${item.id}`;
+        
+        const scoreVal = scores[item.id] !== undefined ? scores[item.id] : "";
+        let badgeHtml = `<span class="badge-status badge-neutral">ยังไม่ประเมิน</span>`;
+        if (scoreVal !== "") {
+          if (parseFloat(scoreVal) >= 8) {
+            badgeHtml = `<span class="badge-status badge-pass">✓ ผ่าน (&ge;8)</span>`;
+          } else {
+            badgeHtml = `<span class="badge-status badge-fail">✕ ไม่ผ่าน (&lt;8)</span>`;
+          }
+        }
+
+        tr.innerHTML = `
+          <td style="text-align: center; font-weight: 600; color: var(--text-muted);">${item.id}</td>
+          <td><span style="font-size: 0.8rem; background: #e2e8f0; padding: 2px 8px; border-radius: 4px; font-weight: 600;">ระดับ ${item.level}</span></td>
+          <td style="line-height: 1.5;">${item.text}</td>
+          <td style="text-align: center;">
+            <input type="number" 
+                   class="score-input" 
+                   id="input-score-${item.id}" 
+                   min="0" 
+                   max="10" 
+                   step="0.5" 
+                   placeholder="-" 
+                   value="${scoreVal}"
+                   oninput="onScoreChange(${item.id}, this.value)">
+          </td>
+          <td style="text-align: center;" id="status-cell-${item.id}">
+            ${badgeHtml}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Filter Level
+    function filterIndicators() {
+      const selected = document.getElementById("filter-level").value;
+      if (selected === "all") {
+        renderIndicatorsTable(competencyData);
+      } else {
+        const filtered = competencyData.filter(i => i.level === parseInt(selected));
+        renderIndicatorsTable(filtered);
+      }
+      calculateModule1();
+    }
+
+    // Score Changed in Module 1
+    function onScoreChange(id, val) {
+      if (val === "" || isNaN(val)) {
+        delete scores[id];
+      } else {
+        let num = parseFloat(val);
+        if (num > 10) num = 10;
+        if (num < 0) num = 0;
+        scores[id] = num;
+      }
+      updateItemStatusUI(id);
+      calculateModule1();
+      updateExecutiveDashboard();
+    }
+
+    function updateItemStatusUI(id) {
+      const cell = document.getElementById(`status-cell-${id}`);
+      if (!cell) return;
+      const val = scores[id];
+      if (val === undefined) {
+        cell.innerHTML = `<span class="badge-status badge-neutral">ยังไม่ประเมิน</span>`;
+      } else if (val >= 8) {
+        cell.innerHTML = `<span class="badge-status badge-pass">✓ ผ่าน (&ge;8)</span>`;
+      } else {
+        cell.innerHTML = `<span class="badge-status badge-fail">✕ ไม่ผ่าน (&lt;8)</span>`;
+      }
+    }
+
+    // Calculate Module 1 Overall
+    function calculateModule1() {
+      const totalItems = competencyData.length; // 24 items
+      const evaluatedKeys = Object.keys(scores);
+      const evaluatedCount = evaluatedKeys.length;
+
+      let sum = 0;
+      let passCount = 0;
+      let failCount = 0;
+
+      evaluatedKeys.forEach(k => {
+        const s = scores[k];
+        sum += s;
+        if (s >= 8) {
+          passCount++;
+        } else {
+          failCount++;
+        }
+      });
+
+      const avg = evaluatedCount > 0 ? (sum / evaluatedCount).toFixed(2) : "0.00";
+
+      // Criteria: ทุกข้อที่ประเมินต้อง >= 8 และต้องประเมินครบทุกข้อที่ระบุไว้ในสมรรถนะ
+      const isAllEvaluated = evaluatedCount === totalItems;
+      const allPassed = isAllEvaluated && failCount === 0;
+
+      module1Pass = allPassed;
+
+      // Update Summary UI
+      document.getElementById("m1-count-evaluated").innerText = `${evaluatedCount} / ${totalItems}`;
+      document.getElementById("m1-average-score").innerText = avg;
+      document.getElementById("m1-count-pass").innerText = passCount;
+      document.getElementById("m1-count-fail").innerText = failCount;
+
+      const badgeSummary = document.getElementById("m1-badge-summary");
+      const kpiStatusM1 = document.getElementById("kpi-status-m1");
+      const kpiCardM1 = document.getElementById("kpi-card-m1");
+
+      if (!isAllEvaluated) {
+        badgeSummary.className = "badge-status badge-neutral";
+        badgeSummary.innerText = `ยังประเมินไม่ครบ (${evaluatedCount}/${totalItems})`;
+        kpiStatusM1.innerHTML = `<span style="color: var(--text-muted);">ยังไม่ครบ (${evaluatedCount}/${totalItems})</span>`;
+      } else if (allPassed) {
+        badgeSummary.className = "badge-status badge-pass";
+        badgeSummary.innerText = "✓ ผ่านเกณฑ์สมรรถนะพฤติกรรมบ่งชี้ (ทุกข้อ >= 8)";
+        kpiStatusM1.innerHTML = `<span style="color: var(--success);">✓ ผ่านเกณฑ์สมบูรณ์</span>`;
+      } else {
+        badgeSummary.className = "badge-status badge-fail";
+        badgeSummary.innerText = `✕ ไม่ผ่านเกณฑ์ (มี ${failCount} ข้อ ที่ต่ำกว่า 8)`;
+        kpiStatusM1.innerHTML = `<span style="color: var(--danger);">✕ ตกเกณฑ์ (${failCount} ข้อ)</span>`;
+      }
+
+      document.getElementById("badge-tab-1").innerText = `${evaluatedCount}/${totalItems} ข้อ (${allPassed ? "ผ่าน" : "ยังไม่ผ่าน"})`;
+      updateExecutiveDashboard();
+    }
+
+    // Auto-fill Module 1 with Pass Scores
+    function autoFillMockModule1() {
+      competencyData.forEach(item => {
+        scores[item.id] = (8.5 + (item.id % 3) * 0.5); // 8.5 to 9.5
+        const input = document.getElementById(`input-score-${item.id}`);
+        if (input) input.value = scores[item.id];
+        updateItemStatusUI(item.id);
+      });
+      calculateModule1();
+    }
+
+    // ==================== MODULE 2: KNOWLEDGE ====================
+    function calculateModule2() {
+      const input = document.getElementById("exam-score");
+      const val = parseFloat(input.value);
+      const displayScore = document.getElementById("m2-display-score");
+      const fill = document.getElementById("m2-progress-fill");
+      const statusPill = document.getElementById("m2-status-pill");
+      const kpiStatusM2 = document.getElementById("kpi-status-m2");
+
+      if (isNaN(val)) {
+        displayScore.innerText = "0.0";
+        fill.style.width = "0%";
+        fill.style.backgroundColor = "var(--siriraj-blue)";
+        statusPill.className = "badge-status badge-neutral";
+        statusPill.innerText = "รอการบันทึกคะแนน";
+        kpiStatusM2.innerHTML = `<span style="color: var(--text-muted);">รอการบันทึก</span>`;
+        module2Pass = false;
+        document.getElementById("badge-tab-2").innerText = "เกณฑ์ผ่าน: >= 24";
+        updateExecutiveDashboard();
+        return;
+      }
+
+      displayScore.innerText = val.toFixed(1);
+      const percentage = Math.min(100, Math.max(0, (val / 30) * 100));
+      fill.style.width = `${percentage}%`;
+
+      if (val >= 24) {
+        module2Pass = true;
+        fill.style.backgroundColor = "var(--success)";
+        statusPill.className = "badge-status badge-pass";
+        statusPill.innerText = `✓ ผ่านการทดสอบ (${val}/30 คะแนน)`;
+        kpiStatusM2.innerHTML = `<span style="color: var(--success);">✓ ผ่านเกณฑ์ (${val})</span>`;
+        document.getElementById("badge-tab-2").innerText = `ผ่านแล้ว (${val}/30)`;
+      } else {
+        module2Pass = false;
+        fill.style.backgroundColor = "var(--danger)";
+        statusPill.className = "badge-status badge-fail";
+        statusPill.innerText = `✕ ไม่ผ่านเกณฑ์ (${val}/30 คะแนน)`;
+        kpiStatusM2.innerHTML = `<span style="color: var(--danger);">✕ ไม่ผ่าน (${val}/30)</span>`;
+        document.getElementById("badge-tab-2").innerText = `ไม่ผ่าน (${val}/30)`;
+      }
+
+      updateExecutiveDashboard();
+    }
+
+    function setMockExamScore(val) {
+      document.getElementById("exam-score").value = val;
+      calculateModule2();
+    }
+
+    // ==================== MODULE 3: SKILL EVALUATION ====================
+    function calculateModule3() {
+      const skillName = document.getElementById("skill-name").value;
+      const skillResult = document.getElementById("skill-result-select").value;
+      const statusBadge = document.getElementById("m3-badge-status");
+      const kpiStatusM3 = document.getElementById("kpi-status-m3");
+
+      if (skillResult === "PASS" && skillName !== "") {
+        module3Pass = true;
+        statusBadge.className = "badge-status badge-pass";
+        statusBadge.innerText = "✓ ผ่านการประเมินทักษะทางคลินิก (Passed)";
+        kpiStatusM3.innerHTML = `<span style="color: var(--success);">✓ ผ่านการรับรองทักษะ</span>`;
+        document.getElementById("badge-tab-3").innerText = "ทักษะ: ผ่าน ✓";
+      } else if (skillResult === "FAIL") {
+        module3Pass = false;
+        statusBadge.className = "badge-status badge-fail";
+        statusBadge.innerText = "✕ ไม่ผ่านการประเมินทักษะ (Failed)";
+        kpiStatusM3.innerHTML = `<span style="color: var(--danger);">✕ ยังไม่ผ่านทักษะ</span>`;
+        document.getElementById("badge-tab-3").innerText = "ทักษะ: ไม่ผ่าน ✕";
+      } else {
+        module3Pass = false;
+        statusBadge.className = "badge-status badge-neutral";
+        statusBadge.innerText = "รอผลการประเมิน";
+        kpiStatusM3.innerHTML = `<span style="color: var(--text-muted);">รอการประเมิน</span>`;
+        document.getElementById("badge-tab-3").innerText = "Upload & DOPS";
+      }
+
+      updateExecutiveDashboard();
+    }
+
+    function quickPassSkill() {
+      document.getElementById("skill-result-select").value = "PASS";
+      calculateModule3();
+    }
+
+    function handleFileUpload(event) {
+      const files = event.target.files;
+      const container = document.getElementById("file-list-container");
+      if (!files.length) return;
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        const item = document.createElement("div");
+        item.className = "file-item";
+        item.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="20" height="20" fill="none" stroke="#0284c7" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span><strong>${file.name}</strong> (${fileSizeMB} MB)</span>
+          </div>
+          <span style="color: var(--siriraj-blue); font-weight: 600; font-size: 0.78rem;">Uploaded ✓</span>
+        `;
+        container.appendChild(item);
+      }
+    }
+
+    // ==================== OVERALL EXECUTIVE SUMMARY LOGIC ====================
+    function updateExecutiveDashboard() {
+      const finalCard = document.getElementById("kpi-final-card");
+      const finalStatus = document.getElementById("kpi-final-status");
+
+      // Criteria: MUST PASS ALL 3 MODULES
+      const overallPassed = module1Pass && module2Pass && module3Pass;
+
+      if (overallPassed) {
+        finalCard.className = "kpi-final-card pass";
+        finalStatus.innerHTML = "✓ ผ่านการประเมิน SFC สมบูรณ์ (CERTIFIED)";
+      } else {
+        finalCard.className = "kpi-final-card fail";
+
+        const pendingModules = [];
+        if (!module1Pass) pendingModules.push("M1:พฤติกรรมบ่งชี้");
+        if (!module2Pass) pendingModules.push("M2:ความรู้");
+        if (!module3Pass) pendingModules.push("M3:ทักษะ");
+
+        finalStatus.innerHTML = `ยังไม่ผ่าน (${pendingModules.join(", ")})`;
+      }
+    }
+
+    // Load Complete Mock Data
+    function loadFullSampleData() {
+      // M1 Auto Fill
+      autoFillMockModule1();
+
+      // M2 Auto Fill (28.5 / 30)
+      setMockExamScore(28.5);
+      document.getElementById("exam-note").value = "ผู้รับการประเมินมีความรู้แน่นในเรื่อง EKG lethal arrhythmia และการจัดการ anaphylactic shock ได้อย่างดีเยี่ยม";
+
+      // M3 Auto Fill
+      document.getElementById("skill-name").value = "การเตรียมและช่วยแพทย์ทำ Transesophageal Echocardiogram (TEE)";
+      document.getElementById("skill-result-select").value = "PASS";
+      document.getElementById("skill-feedback").value = "ทักษะแม่นยำ ปฏิบัติตามมาตรฐาน Aseptic Technique ถูกต้อง ครบถ้วน พร้อมเป็นพี่เลี้ยงได้";
+      calculateModule3();
+
+      alert("ระบบได้จำลองผลการประเมินผ่านทั้ง 3 Module เรียบร้อยแล้ว (สถานะรวม: ผ่านการประเมิน SFC สมบูรณ์)");
+    }
+
+    // Reset Form
+    function resetForm() {
+      if (confirm("ท่านต้องการล้างข้อมูลการประเมินทั้งหมดเพื่อเริ่มใหม่หรือไม่?")) {
+        for (let k in scores) delete scores[k];
+        document.querySelectorAll(".score-input").forEach(i => i.value = "");
+        competencyData.forEach(item => updateItemStatusUI(item.id));
+        document.getElementById("exam-score").value = "";
+        document.getElementById("skill-result-select").value = "";
+        calculateModule1();
+        calculateModule2();
+        calculateModule3();
+      }
+    }
+  </script>
+</body>
+</html>
